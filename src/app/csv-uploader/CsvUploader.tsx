@@ -1,8 +1,6 @@
-'use client';
-
 import React, { useState } from 'react';
 import Papa from 'papaparse';
-import { CsvData } from '../types';
+import { CsvData } from '../../types';
 
 type CsvUploaderProps = {
   onCsvData: (data: CsvData) => void;
@@ -11,13 +9,20 @@ type CsvUploaderProps = {
 const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (!selectedFile) return;
 
+    if (selectedFile.type !== 'text/csv') {
+      setError('Please upload a CSV file.');
+      return;
+    }
+
     setFile(selectedFile);
     setUploading(true);
+    setError('');
 
     Papa.parse(selectedFile, {
       header: true,
@@ -26,27 +31,18 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
         onCsvData(results.data as CsvData);
         setUploading(false);
       },
+      error: (error) => {
+        setError('Failed to parse CSV file. Please try again.');
+        setUploading(false);
+      }
     });
   };
 
-  const renderUploadStatus = () => {
-    if (!uploading) return null;
-    return (
-      <div className="text-center flex flex-col items-center justify-center bg-slate-50 rounded p-4">
-        <div className="text-sm pt-2 text-slate-500">
-          <span className="file-name">{file?.name}</span>
-        </div>
-        <span className="text-sm font-bold">
-          <span className="total-size">{(file?.size / 1024).toFixed(2)} kB</span>
-        </span>
-      </div>
-    );
-  };
-
   return (
-    <div className="inactive:hidden active" id="input_file-tab-upload">
-      <div id="upload-form">
-        {renderUploadStatus()}
+    <div className="inactive:hidden active " id="input_file-tab-upload">
+      <div id="upload-form" >
+        {error && <div className="text-red-500">{error}</div>}
+        {uploading && <div className="text-green-500">Uploading...</div>}
         {!uploading && (
           <form className="upload">
             <label
