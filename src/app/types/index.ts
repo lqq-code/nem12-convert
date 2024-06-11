@@ -1,0 +1,1 @@
+export type CsvData = Array<Record<string, string>>;
