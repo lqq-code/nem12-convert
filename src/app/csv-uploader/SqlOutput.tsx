@@ -46,6 +46,9 @@ const SqlOutput: React.FC<SqlOutputProps> = ({ csvData }) => {
     useEffect(() => {
         generateAndSetSQL();
     }, [csvData]);
+    console.log(
+        csvData
+    )
 
     return (
         <>
