@@ -9,7 +9,6 @@ export default function Home() {
 
   const handleCsvData = (data: CsvData) => {
     setCsvData(data);
-    console.log('data', data)
   };
 
 

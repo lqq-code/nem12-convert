@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Papa from 'papaparse';
 import { CsvData } from '../../types';
 
-type CsvUploaderProps = {
+interface CsvUploaderProps {
   onCsvData: (data: CsvData) => void;
 };
 
@@ -42,35 +42,32 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
     <div className="inactive:hidden active " id="input_file-tab-upload">
       <div id="upload-form" >
         {error && <div className="text-red-500">{error}</div>}
-        {uploading && <div className="text-green-500">Uploading...</div>}
-        {!uploading && (
-          <form className="upload">
-            <label
-              className="relative bg-primary-50 border-2 border-primary-100 hover:border-primary-400 hover:border-4 rounded-lg min-h-[200px] cursor-pointer flex flex-col items-center justify-center text-center text-primary-300 hover:text-primary-800 border-dashed"
-              id="drop-target"
-            >
-              <span className="block">
-                {file ? file.name : 'Drag and drop a file here, or click to select'}
+        <form className="upload">
+          <label
+            className="relative bg-primary-50 border-2 border-primary-100 hover:border-primary-400 hover:border-4 rounded-lg min-h-[200px] cursor-pointer flex flex-col items-center justify-center text-center text-primary-300 hover:text-primary-800 border-dashed"
+            id="drop-target"
+          >
+            <span className="block">
+              {file ? file.name : 'Drag and drop a file here, or click to select'}
+            </span>
+            {file && (
+              <span className="text-sm font-bold">
+                <span>{(file.size / 1024).toFixed(2)} KB</span>
               </span>
-              {file && (
-                <span className="text-sm font-bold">
-                  <span>{(file.size / 1024).toFixed(2)} KB</span>
-                </span>
-              )}
-              <div className="text-center pt-4">
-                <span className="btn btn-secondary text-left text-sm">
-                  Choose a different file
-                </span>
-              </div>
-              <input
-                type="file"
-                accept=".csv"
-                className="hidden"
-                onChange={handleFileUpload}
-              />
-            </label>
-          </form>
-        )}
+            )}
+            <div className="text-center pt-4">
+              <span className="btn btn-secondary text-left text-sm">
+                Choose a different file
+              </span>
+            </div>
+            <input
+              type="file"
+              accept=".csv"
+              className="hidden"
+              onChange={handleFileUpload}
+            />
+          </label>
+        </form>
       </div>
     </div>
   );
