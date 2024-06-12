@@ -50,7 +50,6 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
     setError('');
     handleParseCsv(selectedFile)
   };
-
   return (
     <div className="inactive:hidden active " id="input_file-tab-upload">
       <div id="upload-form" >
