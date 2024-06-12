@@ -14,7 +14,6 @@ export const generateSQL = (data: DataLine[]): string => {
     let sqlStatements = '';
     let currentNmi: string | null = null;
     let currentInterval: number = -1;
-
     for (const line of data) {
         const recordIndicator = parseInt(line[100 as keyof DataLine] as string, 10);
 

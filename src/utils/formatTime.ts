@@ -1,4 +1,5 @@
 export const formatTimestamp = (date: string, interval: number, index: number): string => {
+    console.log('date',date)
     const [year, month, day] = [date.slice(0, 4), date.slice(4, 6), date.slice(6, 8)];
     const [hour, minute] = calculateHourAndMinute(interval, index);
     return `${year}-${month}-${day} ${hour}:${minute}`;

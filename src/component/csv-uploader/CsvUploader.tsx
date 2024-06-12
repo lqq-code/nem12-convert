@@ -11,6 +11,32 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
+  const handleParseCsv =(file: File)=>{
+    
+    return new Promise((resolve, reject) => {
+      let parsedData: Record<string, string>[] = [];
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        
+        step: (result) => {
+          // Process each row as it's parsed
+          const rowData: Record<string, string> = result.data;
+          parsedData.push(rowData);
+        },
+        complete: () => {
+          resolve(parsedData);
+          onCsvData(parsedData);
+        },
+        error: (error) => {
+          reject(error);
+          setError('Failed to parse CSV file. Please try again.');
+          setUploading(false);
+        }
+      });
+    });
+  }
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (!selectedFile) return;
@@ -19,23 +45,10 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
       setError('Please upload a CSV file.');
       return;
     }
-
     setFile(selectedFile);
     setUploading(true);
     setError('');
-
-    Papa.parse(selectedFile, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        onCsvData(results.data as CsvData);
-        setUploading(false);
-      },
-      error: (error) => {
-        setError('Failed to parse CSV file. Please try again.');
-        setUploading(false);
-      }
-    });
+    handleParseCsv(selectedFile)
   };
 
   return (
