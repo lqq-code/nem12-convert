@@ -12,7 +12,6 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
   const [error, setError] = useState<string>('');
 
   const handleParseCsv = (file: File) => {
-
     return new Promise((resolve, reject) => {
       let parsedData: Record<string, string>[] = [];
       Papa.parse(file, {
