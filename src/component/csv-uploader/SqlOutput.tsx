@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { generateSQL } from '../../utils/sqlGenerator';
-import { CsvData } from '../../types';
-import LoadingComponent from '../component/Loading/Loading';
+import { CsvData } from '../../lib';
+import LoadingComponent from '../Loading/Loading';
 
 interface SqlOutputProps {
     csvData: CsvData | null;

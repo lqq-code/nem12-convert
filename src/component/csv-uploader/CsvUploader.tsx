@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
-import { CsvData } from '../../types';
+import { CsvData } from '../../lib';
 
 interface CsvUploaderProps {
   onCsvData: (data: CsvData) => void;

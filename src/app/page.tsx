@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from 'react';
-import CsvUploader from './csv-uploader/CsvUploader';
-import SqlOutput from './csv-uploader/SqlOutput';
-import { CsvData } from '../types';
+import CsvUploader from '../component/csv-uploader/CsvUploader';
+import SqlOutput from '../component/csv-uploader/SqlOutput';
+import { CsvData } from '../lib';
 
 export default function Home() {
   const [csvData, setCsvData] = useState<CsvData | null>(null);
