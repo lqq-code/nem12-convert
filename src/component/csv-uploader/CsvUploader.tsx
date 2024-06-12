@@ -11,17 +11,17 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onCsvData }) => {
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  const handleParseCsv =(file: File)=>{
-    
+  const handleParseCsv = (file: File) => {
+
     return new Promise((resolve, reject) => {
       let parsedData: Record<string, string>[] = [];
       Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
-        
+
         step: (result) => {
           // Process each row as it's parsed
-          const rowData: Record<string, string> = result.data;
+          const rowData: Record<string, string> = result.data as Record<string, string>;
           parsedData.push(rowData);
         },
         complete: () => {
