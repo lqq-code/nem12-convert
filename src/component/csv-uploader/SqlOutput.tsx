@@ -1,3 +1,4 @@
+'use strict';
 import React, { useState, useEffect } from 'react';
 import { generateSQL } from '../../utils/sqlGenerator';
 import { CsvData } from '../../lib';

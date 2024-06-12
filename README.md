@@ -25,7 +25,7 @@ Next.js + React + TypeScript + Tailwind CSS + Jest
  ```bash
     npm run test
    ```
-
+![alt text](image-2.png)
 ### Designed & structured
 - Component-based structure, with separate components for file uploading, CSV parsing, SQL generation, and UI rendering. Each component is responsible for a specific functionality, promoting code organization and reusability.
 - Utilizes TypeScript for static typing, providing better code documentation and enhancing developer confidence.
